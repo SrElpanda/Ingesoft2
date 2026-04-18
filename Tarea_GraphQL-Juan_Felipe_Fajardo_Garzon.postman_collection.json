@@ -1,0 +1,222 @@
+{
+  "info": {
+    "_postman_id": "d6b085f7-3e64-4c35-a1f7-6288b842dbb6",
+    "name": "Tarea GraphQL -  Juan Felipe Fajardo Garzon",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54117338",
+    "_collection_link": "https://go.postman.co/collection/54117338-d6b085f7-3e64-4c35-a1f7-6288b842dbb6?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "continent_list",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code es 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "\r",
+              "pm.test(\"Cada continente tiene un nombre y código\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    const continents = jsonData.data.continents;\r",
+              "    \r",
+              "    pm.expect(continents).to.be.an('array');\r",
+              "    pm.expect(continents[0]).to.have.all.keys('name', 'code');\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\r\n  continents {\r\n    name\r\n    code\r\n  }\r\n}",
+            "variables": ""
+          }
+        },
+        "url": {
+          "raw": "{{url_base}}",
+          "host": [
+            "{{url_base}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "filtro_pais_codigo",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code es 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"País no es null y es un string\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.data.country).to.not.be.null;\r",
+              "    pm.expect(jsonData.data.country.name).to.be.a('string');\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\r\n  country(code: \"AE\") {\r\n    name\r\n    capital\r\n    emoji\r\n    native\r\n    phone\r\n  }\r\n}",
+            "variables": ""
+          }
+        },
+        "url": {
+          "raw": "{{url_base}}",
+          "host": [
+            "{{url_base}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "US_states",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code es 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"La lista de estados no es NULL\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.data.country.states).to.be.an('array').and.not.be.empty;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\r\n  country(code: \"US\") {\r\n    name\r\n    languages {\r\n      code\r\n      name\r\n    }\r\n    states {\r\n      code\r\n      name\r\n    }\r\n  }\r\n}\r\n",
+            "variables": ""
+          }
+        },
+        "url": {
+          "raw": "{{url_base}}",
+          "host": [
+            "{{url_base}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "languages_request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code es 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Los códigos del lenguaje tienen el formato correcto (2 letras)\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    const languages = jsonData.data.languages;\r",
+              "    pm.expect(languages[0].code).to.have.lengthOf(2);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\r\n  languages {\r\n    name\r\n    code\r\n  }\r\n}",
+            "variables": ""
+          }
+        },
+        "url": {
+          "raw": "{{url_base}}",
+          "host": [
+            "{{url_base}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "exotic_request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code es 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"La respuesta no contiene errores de GraphQL\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.errors).to.be.undefined;\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "graphql",
+          "graphql": {
+            "query": "query {\r\n  continents {\r\n    name\r\n    countries{\r\n        name\r\n        code\r\n        states{\r\n            name\r\n        }\r\n    }\r\n  }\r\n}",
+            "variables": ""
+          }
+        },
+        "url": {
+          "raw": "{{url_base}}",
+          "host": [
+            "{{url_base}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
