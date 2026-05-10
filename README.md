@@ -70,6 +70,7 @@ class LandingPageCreator(WebPageCreator):
 ### Resultado obtenido
 
 código de la pagina/clase landing page
+
 ![alt text](media/1.png)
 
 
